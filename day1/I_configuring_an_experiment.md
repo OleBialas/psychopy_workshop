@@ -1,4 +1,4 @@
-# I. Experiment Configuration
+# I. Configuring an Experiment
 
 ## 0. Running Scripts
 

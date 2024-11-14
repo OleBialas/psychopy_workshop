@@ -82,9 +82,9 @@ This shows that the same operation may have a different meaning (or none at all)
 ### Exercises
 1. Rerun the `test_types.py` script and assign a boolean and a float value to the variable `x`.
 2. Find a [string](string) value for `x` that produces a different error than the one we saw before.
-3. Rename the variable x. Can you choose any name or are there certain restrictions?
+3. Rename the variable x. Use upper and lower case letters, numbers and special characters. Are there certain names forbidden?
 4. Observe the different type casting operations that have been performed. Can you spot certain behaviors that may result in errors?
-5. There may be cases where multiple data types will be equivalent with respect to a programs behavior. For example, `x=1`, `x=True` and `x=1.0` can be equivalent in many scenarios. If that is the case, how would you decide which type to use?
+5. There may be cases where multiple data types will be equivalent with respect to a programs behavior. For example, `x=1`, `x=True` and `x=1.0` can be equivalent in many scenarios. If that is the case, h:wow would you decide which type to use?
 6. Consider an experiment that estimates the participants hearing threshold by presenting pure tones and lowering their level until they are detected in 50% of cases. Some tones are omitted to catch false alarms. For a single trial of this experiment, which input parameters are required and what outputs are produced? Which type would you choose to represent each of those?
    
 ## 2. Type hints
@@ -188,6 +188,22 @@ Now we learned about different ways to store different kinds of data in Python.
 However, once a script is done, all it's variables are deleted.
 If we want to preserve specific data, we must write them to a file.
 
+Let's assume we are running an experiment that estimates the participants hearing threshold for pure tones using a staircase procedure.
+This means the sound level is lowered until the participant can't hear the tone anymore at which point the level is increased until the participants can hear the tone again and so on.
+The threshold is obtained by averaging across the reversal points where the staircase changed from decrease to increase or vice versa.
+Some percentage of tones are omitted to catch false alarms.
+A config for this experiment could look like this:
+
+```python
+config = {
+    "frequencies": [800, 1600, 3200],
+    "start_intensity": 60,
+    "step_size": 1.5,
+    "p_omission": 0.2,
+    "n_reversals": 8
+    }
+```
+
 Let's create a file that stores our experimental parameters!
 We'll use JSON which stands for JavaScript Object Notation and is a widely used standard for data storage and exchange.
 We can define a dictionary in Python and then use the `dump()` function from Pythons built-in `json` library, which must be imported.
@@ -197,13 +213,13 @@ Let's create a script called `write_config.py` that does exactly that and looks 
 ```python
 import json
 
-config = { 
-    "fix_dur": 0.75,
-    "cue_dur": 0.5,
-    "n_trials": 20,
-    "n_blocks": 2,
-    "p_valid": 0.8
-} 
+config = {
+    "frequencies": [800, 1600, 3200],
+    "start_intensity": 60,
+    "step_size": 1.5,
+    "p_omission": 0.2,
+    "n_reversals": 8
+    }
 
 f = open("config.json", mode="w")
 json.dump(config, f)
@@ -227,6 +243,7 @@ We can now run this code at the beginning of our experiment to configure the exp
 
 
 ### Exercises
-1. Add an additional field to the dictionary that contains the experimental conditions "left" and "right".
+1. Add an additional field to the dictionary called "n_trials" that contains the total number of trials.
 2. One advantage of JSON is that it is stored in plain text. Open your `config.json` in your editor and change it. Then save it and rerun `python read_config.py`. Can you make some change that prevents your file from being read?
 3. Discuss possible benefits and risks of storing your configuration as JSON and loading it as a Python dictionary.
+4. Assume you want to store the keys that the participants use to indicate whether they head a tone or not in the config. How would you encode them?

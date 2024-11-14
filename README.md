@@ -115,8 +115,16 @@ Check out their [installation section](https://www.psychopy.org/download.html) a
 
 ## Resources
 
-If you want to deepen your understanding of the topics covered in this workshop, here are some recommendations:
-- PsychoPy has great [online documentation](https://psychopy.org/documentation.html) including [tutorials](https://psychopy.org/coder/#psychopy-tutorials)
-- The book Robust Python: Write Clean and Maintainable Code by Patrick Viafore explains many of the core concepts from this workshop, like type-hinting, modularization and testing.
-- Python Testing with Pytest by Brian Okken provides in-depth coverage of everything you can do with pytest.
-- Experimental Design for Biologists by David J. Glass discusses the theory behind experimental design with a focus on biological sciences.
+### Packages
+
+- [PsychoPy](https://psychopy.org/documentation.html) 
+  
+### Books
+
+- **Robust Python: Write Clean and Maintainable Code** - this book by Patrick Viafore covers many of the core concepts from this workshop, like type-hinting, modularization and testing.
+- **Python Testing with Pytest** - this book by Brian Okken elaborates all the things one can d withing the pytest framework, going far beyond this course.
+
+### Papers
+
+- **Bridges et al. (2020): The timing mega-study: comparing a range of experiment generators, both lab-based and online** - this paper compares response and stimulus timing across different programs and setups and provides detailed discussions on various aspects of experimental timing
+- **Posner (1980): Orienting of Attention - this paper describes the attention cueing task this course uses as an example.

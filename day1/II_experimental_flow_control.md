@@ -26,16 +26,16 @@ The numbers in this part varies randomly. It is sometimes 1 and 2, 2 and 3, and 
 
 # II. Experimental Flow Control
 
-Experiments consists of different elements, like the presentation of a stimulus or the recording of a response. 
+Experiments consist of different elements, like the presentation of a stimulus or the recording of a response. 
 These elements are organized in a certain flow that determines when and under which conditions certain behaviors are executed.
 In this notebook, we will learn how to turn this experimental flow into code by using expressions like loops and conditional statements.
 We will also see how to store and evaluate trial sequences and response data using the Pandas package.
-o explore these concepts, we are going to implement a little numbers guessing game.
+To explore these concepts, we are going to implement a little numbers guessing game.
 While this is going to be a toy example, it will contain many of the core features of an actual experiment and produce response data that we can analyze.
 
 ## 1. Iterating Experimental Trials
 
-Let's start simple by creating a list of numbers and randomizing it with the `shuffle()` function from pythons built-in `random` module.
+Let's start simple by creating a list of numbers and randomizing it with the `shuffle()` function from Python's built-in `random` module.
 Then, let's go trough that list one-by-one and ask the participant to guess each number.
 To this end, we'll use a `for` loop, which repeats a block of code `for` every element in a sequence.
 In each iteration, we ask the participant to guess the current number using the `input()` function.
@@ -48,10 +48,10 @@ from random import shuffle
 numbers = [1,2,3]
 shuffle(numbers) # randomize
 responses = [] # list for storing responses
-
+s
 for number in numbers: 
     # get response
-    print(f"guess a number between {numbers[0]} and {numbers[1]}")
+    print(f"guess a number between {min(numbers)} and {max(numbers)}")
     response = input()
     responses.append(response)
 # print results
@@ -102,7 +102,7 @@ responses = [] # list for storing responses
 
 for number in numbers: 
     # get response
-    print(f"guess a number between {numbers[0]} and {numbers[1]}")
+    print(f"guess a number between {min(numbers)} and {max(numbers)}")
     response = input()
     if response.isdecimal(): # check if response is a number
         response = int(response)
@@ -173,8 +173,8 @@ trials = numbers * n_repeats
 shuffle(trials)
 
 responses = [] # list for storing responses
-for number in numbers:
-    print(f"guess a number between {numbers[0]} and {numbers[1]}")
+for number in trials:
+    print(f"guess a number between {min(numbers)} and {max(numbers)}")
     # get response
     response = input()
     if response.isdecimal(): # check if response is a number
@@ -192,7 +192,7 @@ To make the task a little easier, we can add a print statement that lets the par
 Now we can set the number of trials independently from our list of conditions!
 
 ### Exercises
-1. Modify the script so that it loads in the config file stored at `day1/condig.json` and replace the hard-coded values of `numbers` and `n_trials` with the values from that config.
+1. Modify the script so that it loads in the config file stored at `day1/config.json` and replace the hard-coded values of `numbers` and `n_trials` with the values from that config.
 2. If `n_trials` is not divisible by `len(numbers)`, the resulting `trials` list may differ from the desired length. Modify the script to deal with this problem.
 3. How could we change the program to ensure that the trial sequence does not contain any immediate repetition of the same number? Think about possible strategies rather than the concrete implementation (you are welcome to try though).
 
@@ -225,7 +225,7 @@ df = pd.DataFrame({'number':trials, 'response':None})
 
 responses = []
 for i in df.index:
-    print(f"guess a number between {min(numbers)} and {max(numbers)}")
+    print(f"guess a number between {min(cfg['numbers'])} and {max(cfg['numbers')}")
     number = df.loc[i, "number"] # get current number
     # get response
     response = input()
@@ -244,8 +244,9 @@ After the program ran, we should not see a response printed out - instead, there
 
 ### Exercises
 1. Discuss what may be advantages and downsides of storing data in the csv format.
-2. Assume you are worrying the experiment may crash at some point. Modify the script so that the data frame is stored after every trial.
-3. Rerun the experiment but change the number of trials to 12 and save the result in a file with a different name.
+2. In the `print` statement, why must we use single quotations for `cfg['numbers']`?
+3. Assume you are worrying the experiment may crash at some point. Modify the script so that the data frame is stored after every trial.
+4. Rerun the experiment but change the number of trials to 12 and save the result in a file with a different name.
 
 ## 5. Analyzing responses
 
@@ -258,7 +259,7 @@ import pandas as pd
 df = pd.read_csv('numbers_game_response.csv')
 print(df.head(3))
 ```
-If we run this script with `python analyze_responses.py` (make sure you are in the `day1` directory or otherwise it won't fin the csv file), we should see something like this:
+If we run this script with `python analyze_responses.py` (make sure you are in the `day1` directory or otherwise it won't find the csv file), we should see something like this:
 
 ```sh
    number  response
@@ -268,7 +269,7 @@ If we run this script with `python analyze_responses.py` (make sure you are in t
 ```
 
 The numbers on the left represent the row index and the two named columns contain each trials number, as well as the participant's response.
-The `.head()` method print out the first rows of a data frame but we can also get rows at specific indices using the `.loc` attribute.
+The `.head()` method prints out the first rows of a data frame but we can also get rows at specific indices using the `.loc` attribute.
 For example, we could edit the last line of `analyze_response.py` to print out rows 5 to 10:
 
 ```python
@@ -312,7 +313,7 @@ We can also compute the participants hit rate as the fraction of trials where th
 ```python
 n_correct = sum(df['number'] == df['response'])
 percent_correct = (n_correct / len(df)) * 100
-print(f"{percent_correct}% of all trials were aswered correctly")
+print(f"{percent_correct}% of all trials were answered correctly")
 ```
 
 The first line computes the sum of correct responses.

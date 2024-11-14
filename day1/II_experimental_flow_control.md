@@ -1,3 +1,29 @@
+COMMENT (Time taken: 31 minute)
+
+Love the project idea!! 
+
+Is this an intro level course? If it is, I feel that it might be a little difficult for students to learn control structures and loop all in one section. Maybe you could split them into two separate sections? 
+
+
+I have a problem with the example code. I copied and pasted it into a script but when I run, I get
+
+```bash
+guess a number between 3 and 1
+2 
+guess a number between 3 and 1
+2
+guess a number between 3 and 1
+2
+The numbers were: [3, 1, 2]
+Your responses were: ['2', '2', '2']
+```
+
+```bash
+guess a number between 3 and 1
+```
+The numbers in this part varies randomly. It is sometimes 1 and 2, 2 and 3, and 1 and 3. It seems to be showing shuffled numbers. I haven't explored the cause of this myself yet but putting it in the notes just so you know.
+
+
 # II. Experimental Flow Control
 
 Experiments consists of different elements, like the presentation of a stimulus or the recording of a response. 

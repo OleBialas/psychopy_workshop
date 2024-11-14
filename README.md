@@ -77,9 +77,9 @@ This should create a new subfolder called `psychopy_workshop` within your curren
 
 ### Python
 You will also need an installation of Python 3.
-You can download and [Anaconda](https://docs.anaconda.com/miniconda/miniconda-install/) which is a Python distribution with a built-in package and environment manage system.
+You can download and [Anaconda](https://docs.anaconda.com/anaconda/install/) which is a Python distribution with a built-in package and environment manage system.
 During the installation, you can opt to add Anaconda to your system's PATH.
-To test that your conda installation is working, open a terminal and type:
+To test that your conda installation is working, open a terminal (on Windows you can use the "Anaconda Prompt" that is part of the Anaconda distribution.
 
 ```sh
 conda --version
@@ -100,7 +100,7 @@ While substituting `<Path to>` with the directory where you stored the repositor
 Then, type:
 
 ```sh
-conda env install --file environment.yml
+conda env create -f environment.yml
 ```
 
 This will create a new environment and install all the required packages.

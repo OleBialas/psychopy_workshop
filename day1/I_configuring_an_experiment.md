@@ -3,7 +3,7 @@
 ## 0. Running Scripts
 
 In this course, we will create applications for running experiments.
-These applications will be run from the command line so that, once developed, they can be ran many times without touching the code.
+These applications will be run from the command line so that, once developed, they can be run many times without having to open the code in an editor.
 If you are unfamiliar with this way of operating, don't worry - running scripts is easy!
 Just open a new file, let's call it `experiment.py`, and add the following line of code:
 
@@ -35,7 +35,7 @@ To practice our intuitions about data types by running another script.
 Create a new file, let's call it `test_type.py`, and add the following code:
 
 ```python
-x = 23.7
+x = 1
 print(f"This variable is a {type(x)}. \n")
 print(f"As a string, it looks like this: {str(x)}")
 print(f"As an integer, it looks like this: {int(x)}")
@@ -47,8 +47,8 @@ print(f"If we multiply the variable by three, we get: {x*3}")
 print(f"If subtract 10 from the variable, we get: {x-10}")
 ```
 
-This script creates a **variable** by assigning `x=23.7`.
-A variable simply is a placeholder than we can use to store and address data.
+This script creates a **variable** by assigning `x=1`.
+A variable simply is a placeholder that we can use to store and address data.
 After creating the variable, we cast it to different data types and perform some arithmetic operations on it.
 The expressions that look like this `f"{}"` are called f-strings and they are a way to tell Python to format everything enclosed in the curly brackets as a string.
 
@@ -68,10 +68,10 @@ If subtract 10 from the variable, we get: -9
 ```
 
 Now, let's modify our script!
-Instead of assigning float, we'll assign our variable a string by changing the first line to:
+Instead of assigning an integer, we'll assign our variable a string by changing the first line to:
 
 ```python
-x = "13"
+x = "1"
 ```
 
 If we save the change and rerun our script by typing `python test_string.py`, we'll see a similar output as before followed by a menacing error message: `TypeError: unsupported operand type(s) for -: 'str' and 'int'`.
@@ -80,11 +80,35 @@ Also, notice how multiplying the variable by three did not give us "39" but inst
 This shows that the same operation may have a different meaning (or none at all), depending on the data type!
 
 ### Exercises
-1. Rerun the `test_types.py` script and assign a boolean and an integer value to the variable `x`.
-2. Find a string value for `x` that produces another error than the one we saw before.
+1. Rerun the `test_types.py` script and assign a boolean and a float value to the variable `x`.
+2. Find a [string](string) value for `x` that produces a different error than the one we saw before.
 3. Rename the variable x. Can you choose any name or are there certain restrictions?
 4. Observe the different type casting operations that have been performed. Can you spot certain behaviors that may result in errors?
-5. Consider a single trial of the [attention cueing task](https://en.wikipedia.org/wiki/Posner_cueing_task). Which inputs or parameters does the trial require? What outputs are generated? Discuss the appropriate data type for each input and output variable.
+5. There may be cases where multiple data types will be equivalent with respect to a programs behavior. For example, `x=1`, `x=True` and `x=1.0` can be equivalent in many scenarios. If that is the case, how would you decide which type to use?
+6. Consider an experiment that estimates the participants hearing threshold by presenting pure tones and lowering their level until they are detected in 50% of cases. Some tones are omitted to catch false alarms. For a single trial of this experiment, which input parameters are required and what outputs are produced? Which type would you choose to represent each of those?
+   
+## 2. Type hints
+Python is a dynamically typed language which means that you don't have to explicitly declare the type of a variable.
+Instead a variables type is inferred from the assigned value.
+This allows us to code faster because we don't have to spend time thinking about and declaring data types.
+However, this also means that Python won't know that an operation (e.g. multiplying two strings) is invalid before it ran and crashed.
+
+In statically typed languages, you must explicitly declare the type of every variable you create.
+While this is additional  effort it allows your program to be checked for logical consistency before it runs.
+In version 3.5, Python introduced type hints for static type checking.
+Let's edit `test_types.py` to add a type declaration for our variable `x`:
+
+```python
+x: str = "1"
+```
+Once made this edit, you should see a new message appear in your editor which warns you that the `-` operator is not supported for these data types.
+This is the power of static typing: it can catch mistakes before they even happen.
+Note however, that type hints are entirely voluntary and have no effect when we actually run the program - they just help us to write correct code
+
+### Exercise
+1. Assign an integer, boolean and float value to `x`. For each type, add a type hint and observe the resulting warnings.
+2. What happens if at some point in `test_types.py`, we cast `x` to a different type, like `x = int(x)`?
+3. Discuss potential upsides and downsides of using type hints.
 
 ## 2. Collections
 
@@ -153,9 +177,10 @@ The latter happens because, in a dictionary, elements are accessed by their key 
 ### Exercises
 
 1. Edit `test_collections.py` so that x is assigned a set and a tuple, then rerun the script. What does the output tell you about the properties of sets and tuples?
-2. Test the arithmetic operators `+`, `-`, `*`, and `/` on the different collection types. Which operators work on which types and what do they do?
-3. Determine the number of duplicate items in the list `x=[1, 2, 3, 1, 2, 1, 3, 5]` (Hint: use the `set()` and `len()` functions).
-4. Discuss which collection would be best suited to store our experimental parameters.
+2. Add a type hint for each type of collection.
+3. Test the arithmetic operators `+`, `-`, `*`, and `/` on the different collection types. Which operators work on which types and what do they do?
+4. Determine the number of duplicate items in the list `x=[1, 2, 3, 1, 2, 1, 3, 5]` (Hint: use the `set()` and `len()` functions).
+5. Which type of collection would you use to store your experimental configuration (e.g. number of trials, conditions, stimulus duration etc.) and why?
 
 ## 3. Writing and Reading the Configuration
 

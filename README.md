@@ -8,8 +8,8 @@ We are going to leverage modern software engineering tools like automated testin
 Each day consists of four units, each of those units centers on a particular topic surrounding building experiments. Here is a brief outline of the days and topics:
 
 ### Day 1
-- I. Configuring an Experiment
-- II. Experimental Flow Control
+- I. [Configuring an Experiment](day1/I_configuring_an_experiment.md)
+- II. [Experimental Flow Control](day1/II_experimental_flow_control.md)
 - III. Introduction to PsychoPy
 - IV. Running an Experiment
 ### Day 2
@@ -29,9 +29,11 @@ Each notebook is composed of multiple sections.
 These sections start with explanations and code examples and end with a set of exercises that test your understanding of the covered topic.
 The exercises are typically ranked in order of increasing difficulty - while the first exercises require only small modifications on the code presented in the examples, the latter exercises go beyond those materials and may require some independent research.
 Don't worry if you can't complete all exercises - if you find yourself stuck, just move on.
+
 It is still recommended that you at least take a look at all of the exercises and then check the solutions that will be uploaded to the `solutions` folder, after the workshop.
 At the end of every notebook (except the first one), you'll find a project.
 The projects provide opportunities to rehearse and deepen your understanding of the materials outside of the course hours.
+
 While some notebooks build on each other thematically, they are self sufficient in the sense that the examples do not require any code or data from other notebooks.
 However, the notebooks do assume that you installed the required dependencies and downloaded the contents from this repository.
 

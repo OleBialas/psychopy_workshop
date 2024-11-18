@@ -38,82 +38,93 @@ While some notebooks build on each other thematically, they are self sufficient 
 However, the notebooks do assume that you installed the required dependencies and downloaded the contents from this repository.
 
 ## Installation
-This section goes through the different installation steps that are required to run all of the code presented in the notebooks.
-Setting these things up for the first time can be a bit of a pain but you will only have to do it once!
-If you experience any trouble while following these instructions, you can post your problem the [issues](https://github.com/OleBialas/psychopy_workshop/issues) section (make sure that you list the steps for reproducing your problem.
 
+In order to run all of the code presented in the notebooks, you need to clone this repository and set up the correct Python environment.
+Always use this environment when working on the course contents!
+If you use VSCode you can either start VSCode from the Command Prompt by simply typing `code` (after activating the environment ) simply or [select the environment in VSCode](https://code.visualstudio.com/docs/python/environments#_select-and-activate-an-environment).
 
-### Git
-To install the Git, follow the instructions for your operating system on [the git webiste](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
-After installing, open a terminal (on Windows, you can use the builtin Command Prompt) and check if git is detected by typing:
+If you experience any trouble while following installation, you can post your problem the [issues](https://github.com/OleBialas/psychopy_workshop/issues) section (make sure that you list the steps for reproducing your problem.
 
+### Windows
+First, we need to install the version control software git and the Python package manager uv.
+You can do this by using Window's builtin package manager winget.
+Simply open the Command Prompt (type "cmd" in the search window) and run
+```sh
+winget install -e --id Git.Git
+```
+to install git as well as
+```sh
+winget install -e --id astral-sh.uv
+```
+to install the uv package manager.
+Once the installation is complete, close and re-open the Command Prompt.
+To test, that the installation of git and uv was successful, type
 ```sh
 git --version
+uv --version
 ```
-
-This should print out the version of your Git installation.
-If it doesn't, that means that the terminal does not know the location of Git.
-In this case, you'll have to add it to your PATH environment variable.
-This is simply a list of all the places where a program should look for things - if you type `git` in your terminal, the program will search trough this list for a command called `git`, and throw and error if it can't find any.
-
-On Windows, you can [follow this guide](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/) for editing PATH using the graphical interface.
-You'll have to add the path to you Git installation, which should be something like `C:\Program Files\Git\cmd\git.exe`, to PATH. Once you did that, restart the Terminal and try if the `git` command is recognized now.
-
-Once git is working, you can configure your email and username by running the following while replacing the text inside the quotation marks with your actual user name and email.
-
-```sh
-git config --global user.name "example"
-git config --global user.email "example@mail.com"
-```
-
-Then, move to the directory where you wish to store the content for this course using the `cd`(change directory) command.
-Once you are in the correct director, clone this repository:
-
+which should return the versions of the respective installation.
+Now, we can clone the repository for this course.
+Move to a folder of your choice using the `cd` command or stay in your user directory and run
 ```sh
 git clone https://github.com/OleBialas/psychopy_workshop.git
 ```
-
-This should create a new subfolder called `psychopy_workshop` within your current directory.
-
-### Python
-You will also need an installation of Python 3.
-You can download and [Anaconda](https://docs.anaconda.com/anaconda/install/) which is a Python distribution with a built-in package and environment manage system.
-During the installation, you can opt to add Anaconda to your system's PATH.
-To test that your conda installation is working, open a terminal (on Windows you can use the "Anaconda Prompt" that is part of the Anaconda distribution.
-
+which will download the course contents to a new folder called psychopy_workshop.
+Next, we `cd` into the new folder and install the Python environment with uv
 ```sh
-conda --version
+cd psychopy_workshop
+uv sync --python 3.8
 ```
-
-If this throws an error, try adding conda to your PATH variable as described in the previous section.
-
-### Environment
-
-Once you installed Git and Python, you can install the required packages using the `environment.yml` file found in this repository.
-Move to the directory that contains the workshop materials by typing something like:
-
+You can also use a newer Python version but this may require manual installation of additional dependencies.
+Now, uv should have created a new folder called .venv (you can list the contents of your current directory by typing `dir`).
+To activate the new environment type
 ```sh
-cd <Path to>/psychopy_workshop
+.venv\Scripts\activate
 ```
+Now you should see the name of the environment "psychopy_workshop" appear in brackets on the left side of your command line.
+You are good to go!
 
-While substituting `<Path to>` with the directory where you stored the repository.
-Then, type:
+### Linux
 
+Setting up PsychoPy on Linux requires a few additional steps.
+First, install the necessary dev libraries and git using the `apt` package manager (on Debian-based distributions like Ubuntu) by executing
 ```sh
-conda env create -f environment.yml
+sudo apt-get install libusb-1.0-0-dev portaudio19-dev libasound2-dev git-all
 ```
-
-This will create a new environment and install all the required packages.
-PsychoPy has a lot of dependencies so this may take a while.
-Once the installation is finished you can activate your new environment by typing:
-
+and install the uv package manager by typing
 ```sh
-conda activate psychopy
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
-
-All of the code presented in the notebooks should be executable with this environment.
-If you are experiencing issues when installing the environment, this is most likely due to PsychoPy.
-Check out their [installation section](https://www.psychopy.org/download.html) and, if that did not help, consult the [issues](https://github.com/OleBialas/psychopy_workshop/issues) section.
+Next, move to a directory of your choice using the `cd` command and clone the course repository by running
+```sh
+git clone https://github.com/OleBialas/psychopy_workshop.git
+```
+which will download the course contents to a new folder called psychopy_workshop.
+Then, move to that new folder and create a virtual Python environment:
+```sh
+uv venv --python 3.10
+```
+which will create a new sub-directory in `psychopy_workshop` called `.venv`.
+To activate the virtual environment type
+```sh
+source .venv/bin/activate
+```
+which should show you the name of the environment "psychopy_workshop" in brackets on the left side of your command line.
+Next, download WxPython4 for your Linux distribution from [this website](https://extras.wxpython.org/wxPython4/extras/linux/gtk3/).
+Note that there are multiple files in each directory that correspond to different versions of Python.
+For example, `wxPython-4.2.2-cp310-cp310-linux_x86_64.whl` is the version compatible with Python 3.10.
+For some distributions, like Debian 11, WxPython4 does not offer wheels for Python 3.10.
+If you are using such a distribution, you must use a different Python version when creating the virtual environment.
+Once the download finished, install the wheel by running something like
+```sh
+uv pip install ~/Downloads/wxPython-4.2.2-cp310-cp310-linux_x86_64.whl
+```
+depending on your download location and version of WxPython.
+Once WxPython is installed you can install all remaining dependencies by simply running
+```sh
+uv pip install .
+```
+Now, you are good to go!
 
 ## Resources
 

@@ -9,6 +9,7 @@ authors = [{ name = "Ole Bialas", email = "ole.bialas@posteo.de" }]
 
 dependencies = [
     "psychopy",
+    "psychtoolbox",
     "pytest",
     "pydantic",
     "pandas",

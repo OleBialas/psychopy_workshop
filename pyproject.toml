@@ -1,0 +1,16 @@
+[project]
+name = "psychopy_workshop" 
+version = "2024.0.0"
+description = "A three day workshop on building robust experiments in psychopy"
+readme = "README.md"
+
+requires-python = ">=3.8, <=3.10"
+authors = [{ name = "Ole Bialas", email = "ole.bialas@posteo.de" }]
+
+dependencies = [
+    "psychopy",
+    "pytest",
+    "pydantic",
+    "pandas",
+    ]
+

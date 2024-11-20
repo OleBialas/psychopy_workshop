@@ -250,65 +250,204 @@ Another fact that may seem trivial is that computers need time to perform operat
 Thus, we have to account for time consuming operations in our experimental timing.
 To demonstrate this, let's create a script called `test_timing.py` that contains the following:
 
-
 ```python
 from psychopy import core, visual
-from psychopy.hardware import keyboard
 
 clock = core.Clock()
-kb = keyboard.Keyboard(clock=clock)
 win = visual.Window(fullscr=True)
+core.wait(1)  # give PsychoPy a second to finish creating the window
 
 fix_dur = 0.5  # how long the fixation is displayed
 stim_dur = 0.25  # how long the stimulus is displayed
 
-kb.waitKeys(keyList=["space"])
 fix = visual.Circle(win, radius=0.1, fillColor="white")
 fix.draw()
-win.flip() # show fixation
 t_fix = clock.getTime() # fixation onset
+win.flip() # show fixation
 core.wait(fix_dur)
 
-img = visual.ImageStim(win, image="smile.webp")  # load image
+img = visual.ImageStim(win, image="smile.png")  # load image
 img.draw()
-win.flip() # show image
 t_stim = clock.getTime() # image onset
+win.flip() # show image
 core.wait(stim_dur)
 
-print(f"The fixation was displayed for {t_stim - t_fix}")
+print(f"The fixation was displayed for {t_stim - t_fix} seconds")
 
 win.close()
 ```
 
-Dropping frames
+If we run this script with `python test_timing.py`, we'll see a quick flash of a fixation point, followed by an image and the command line should show a message like this:
+
+```sh
+The fixation was displayed for 0.5595219135284424 seconds
+```
+
+Due to the time it takes to load, the image was displayed about 55 ms later than we intended (the exact delay will depend on the hardware and workload of your computer).
+This means that potential neural recordings would be completely out of sync with the experimental timing!
+To avoid this, we must take the time it takes to load the image into account.
+Instead of just waiting for 500 ms after displaying the fixation point, we can check how long it took to load the image and subtract that time from the wait duration.
+
+```python
+fix = visual.Circle(win, radius=0.1, fillColor="white")
+fix.draw()
+t_fix = clock.getTime() # fixation onset
+win.flip() # show fixation
+
+img = visual.ImageStim(win, image="smile.png")  # load image
+img.draw()
+t_img = clock.getTime() # time image was drawn
+
+core.wait(fix_dur-(t_img-t_fix))  # wait for remainder
+```
+
+Now the `wait()` function will wait for 500 ms minus the time it took to load the image and our fixation point is displayed for the intended duration!
+
+Finally, there are a number potential issues regarding your hardware and operating system that can mess with your experimental timing.
+PsychoPy offers [detailed documentation on their website](https://www.psychopy.org/general/timing/index.html) but here are some key points to keep in mind:
+
+- commercial keyboards have low accuracy (~20ms) and precision (~10ms). For precise response time data, use a dedicated response box, like [this one](https://labhackers.com/millikey.html)
+- Modern computer screens may post-process the displayed images (this is often called something like "gaming mode" or "theater mode") which adds a delay. Check your monitor's manual on how to deactivate those settings
+- Try not to run any memory intense operations or network services during your experiments. If possible, disconnect your computer from the network.
+- While PsychoPy uses dual buffering (one screen shown, one hidden), some graphics cards default to triple buffering, causing a one frame delay. Check you GPU settings and, if required, turn of triple buffering (how to do this will vary across drivers and manufacturers).
+
+Of course, even when being very cautious and following all the best practices, one can never completely exclude timing issues.The only way to be really sure that your timing works correctly is to test your hardware with devices like oscilloscopes and photo diodes.
+
+### Exercises
+1. Think of another way too solve the issue with image loading times
+2. You may have noticed that our fixation `Circle` is actually an ellipse. Modify the script to make it circular (Tip: use the `size` argument to correct for the monitor's aspect ratio).
+3. Modify the script so that it waits for a key press after the image is presented. Take the response time into account with respect to the stimulus duration.
 
 
-Hardware
+## 5. Playing sounds
 
-
-
-
-- Effect of time consuming operations (e.g. image loading)
-- Possible hardware sources for bad timing
-- natural response time variability
-- Screen refresh rate
-- A 4k display typically has a resolution of 3840x2160 which makes roughly 8.3 million pixels. Each pixel has a red, green, blue and alpha value. At 60 frams per second, the graphics card needs to update and output a staggering 40 billion values per second. Older hardware will just decrease the refresh rate to manage the load.
-- Turn off triple buffering, window scaling and any postprocessing done by the screen
-- Turn off unnecessary network services (e.g. Dropbox, email) or just disconnect from the network
-- Don't run any (memory intense) programs in parallel
-- Keep image files to roughly the size needed on screen
-
-
-## 4. Playing sounds
-
+Of course, PsychoPy can present not only images but sounds as well.
+PsychoPy supports a number of different [audio backends](https://psychopy.org/api/sound/playback.html).
+It is recommended to use PsychToolBox because it offers the lowest latency out of all the options.
+While PsychToolBox is the default audio backend, it can be set explicitly from the `prefs` module (this will only have an effect BEFORE the `sound` module is imported).
 
 ```python
 from psychopy import prefs
-prefs.hardware['audioLib'] = ['pyo']
+prefs.hardware['audioLib'] = ['ptb']
 from psychopy import sound
 ```
 
-## Project
+To play a tone, we simply create an instance of the `Sound` class and call its `.play()` method.
+Let's create a script called `test_sound.py` and add the following:
 
-- Create a "timing checklist" for your experiment and setup.
-- make an animated smiley
+```python
+from psychopy import sound
+tone = sound.Sound('A', secs=1.5, stereo=False)
+tone.play()
+```
+If we run this script with `python test_sound.py` we should hear an A note play.
+The individual samples that make up the sound are stored in the `.sndArr` attribute.
+Let's use the `matplotlib` library to plot the tone after playing it.
+
+```python
+from matplotlib import pyplot as plt
+from psychopy import sound
+tone = sound.Sound('A', secs=1.5, stereo=False)
+tone.play()
+plt.plot(tone.sndArr[:1000])
+plt.show()
+```
+The samples that make up this sinusoidal oscillation are the values that are sent to your sound cards and translated into movement of the loudspeaker membrane.
+
+For sounds other than pure tones, we'll have to create the signal ourselves and put it into the `Sound` object's `sndArr` by calling the `.setSound()` method.
+For example, let's add some background noise:
+
+```python
+import numpy as np
+from psychopy import sound
+
+noise = sound.Sound(secs=1.5, stereo=False)
+noise.setSound(np.random.randn(len(noise.sndArr))
+
+tone = sound.Sound('A', secs=1.5, stereo=False)
+
+noise.play()
+tone.play()
+```
+
+First, we create an instance of the `Sound` class which contains a pure tone.
+However, we are replacing the tone with random numbers from a normal distribution to create Gaussian white noise.
+When creating sounds this way, be sure to generate your signal at the same sampling rate the `Sound` object is using.
+The sampling rate is stored in the `.sampleRate` attribute of the `Sound` class.
+While it can be set to any value, it is strongly recommended that you the sound card's default sampling rate because this will result in the lowest latency.
+You can see the properties of your sound card by calling the `sound.getDevices()` function, which should print out something like this:
+
+```sh
+{'HD-Audio Generic: ALC215 Analog (hw:1,0)':
+{'DeviceIndex': 0.0,
+  'HostAudioAPIId': 8.0,
+  'HostAudioAPIName': 'ALSA',
+  'DeviceName': 'HD-Audio Generic: ALC215 Analog (hw:1,0)',
+  'NrInputChannels': 2.0,
+  'NrOutputChannels': 2.0,
+  'LowInputLatency': 0.008707482993197279,
+  'HighInputLatency': 0.034829931972789115,
+  'LowOutputLatency': 0.008,
+  'HighOutputLatency': 0.032,
+  'DefaultSampleRate': 48000.0,
+  'id': 0}}
+```
+
+If not explicitly told otherwise, PsychoPy will generate all sounds at the `DefaultSampleRate`.
+If `sound.getDevices()` returns more than one interface (i.e. if your computer has an onboard and an external sound card), you must select which one to use.
+To do so, use the `sound.setDevice()` function and pass the `DeviceName` of the interface you want to use.
+
+One feature that makes PsychToolBox stand out is scheduling.
+Instead of playing a sound right now, we can schedule it to play at a specific time.
+PsychToolBox will prepare all the buffers and account for the known latencies of the sound card.
+This way, we can achieve sub-millisecond precision and accuracy!
+To schedule the sound, we simply pass the desired play time using the `.play()` method's `when` argument.
+The time needs to come from the PsychToolBox clock which can be accessed by using the `GetSecs()` function from the `psychtoolbox` package.
+Let's schedule our tone in `test_sound.py` we can include the following:
+
+```python
+import psychtoolbox as pbt
+from psychopy import sound
+
+tone = sound.Sound('A', secs=1.5, stereo=False)
+now = ptb.GetSecs()
+tone.play(when=now+0.5)  # play EXACTLY 500 ms from now
+```
+
+If our experiment includes both visual and auditory stimuli you may want to make sure that the two are presented synchronously.
+In this case, we cant just schedule our sound at a specific time because the screen is updated in fixed time intervals.
+To schedule the sound to point in time where the screen will be updates, we can use the `getFutureFlipTime()` method from the `Window` class.
+This method will return the time of the window flip that is closest to our desired time.
+
+```python
+import psychtoolbox as ptb
+from psychopy import sound, visual
+
+win = visual.Window(fullscr=False)
+
+t_play = win.getFutureFlipTime(0.5, clock="ptb")  # get flip time from the PsychToolBox clock
+tone = sound.Sound('A', secs=1.5, stereo=False)
+tone.play(when=t_play)  # play EXACTLY at t_play
+
+win.close()
+```
+
+In the script above, `t_play` represents the point in time where the window will be flipped that is closest to 500 ms from where the `t_play` was created.
+By setting `clock="ptb"` we can tell `.getFutureFlipTime()` to return the time in the PsychToolBox clock format.
+
+### Exercises
+1. Create a little melody by making PsychoPy play a sequence of tones.
+2. How could you increase or decrease the sound level (PsychoPy does not have a builtin method for this).
+3. Use the play function's `loop` argument to present continuous background noise.
+4. Write a threshold detection script. Play continuous background noise and play pure tones within a `for` loop. After each tone, wait for the listener to press a key if they heard the tone. Decrease the tone's level by a small increment if it was heard, increase it if it was not. Given a suited increment size and sufficient iterations, this procedure should converge on the detection threshold for the given tone.
+
+
+## Project
+Use PsychoPy's visual stimuli to create a smiley face. 
+You could use `Circle` for the head and eyes and `ShapeStim` to draw the mouth. 
+You may also load components as `ImageStim`.
+Then, make the smiley face frown (you can simply change the mouth's orientation.
+Create a for loop that repeatedly alternates between the smiling and frowning face.
+Play a high pitch tone when switching to the smiling face and a low pitch tone when switching to the frowning face.
+The tone should be time-locked to the window flip.
+

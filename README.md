@@ -10,7 +10,7 @@ Each day consists of four units, each of those units centers on a particular top
 ### Day 1
 - I. [Configuring an Experiment](day1/I_configuring_an_experiment.md)
 - II. [Experimental Flow Control](day1/II_experimental_flow_control.md)
-- III. Introduction to PsychoPy
+- III. [Introduction to PsychoPy](day1/III_psychopy.md)
 - IV. Running an Experiment
 ### Day 2
 - V. Modularizing an experiment

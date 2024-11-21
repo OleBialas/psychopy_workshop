@@ -42,7 +42,7 @@
 | path.parent              | The path's parent (i.e. the directory containg the path)         |
 | path.exists()            | Check if a file or folder at this path exists                    |
 | path.mkdir(parents=True) | Create a new directory at this path (and it's parents)           |
-| __file__                 | Variable containing the path to the currently executed script    |
+| `__file__`               | Variable containing the path to the currently executed script    |
 
 ### Key Exercises
 1. Create a script that create a new folder with several subfolders within the current directory

@@ -1,6 +1,6 @@
 
 
-1. Section Headers 
+1. Section Headers: 3-4 sections per notebook
     - What we should at the end: bullet points of each notebook
     - Rough Idea of 10-minute level what we're going to do
 2. Per Section: Reference Tables (Code | Description ) + 2 most-important exercises

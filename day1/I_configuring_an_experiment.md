@@ -2,82 +2,9 @@
 
 ## 0. Running Scripts
 
-In this course, we will create applications for running experiments.
-These applications will be run from the command line so that, once developed, they can be run many times without having to open the code in an editor.
-If you are unfamiliar with this way of operating, don't worry - running scripts is easy!
-Just open a new file, let's call it `experiment.py`, and add the following line of code:
-
-```python
-print("Run, experiment!")
-```
-
-Now, open your terminal and move to the folder where the script is located by using the command `cd` (change directory), for example: `cd C:\Users\Posner\Psychopy_Course` (adjust the path so that it points to the folder where `experiment.py` is stored on your machine). 
-Then run the script by typing `python experiment.py` which means "execute the file 'experiment.py' as a Python script".
-Now you should see the content of the `print()` statement appear in your terminal.
-Congratulations, you just ran your first script!
 
 ## 1. Data Types and Variables
 
-Programs receive, create and operate on data.
-For example, the script above created a string of characters and displayed it with the `print()` command.
-There are many different types (in fact, you can invent your own) but a few **essential** ones can be found in most programming languages. In Python, they are called:
-
-- **int**: integers or non-decimal numbers, example -7, 0, 101
-- **float**: floating-point numbers with a limited number of decimal places, for example: 0.1, pi, 1/3
-- **str**: a string of characters, marked by quotations, for example "a", "13", "hello"
-- **bool**: boolean logical values, can be either True or False
-
-The type determines the range of **values** the data can take on as well as the set of **operations** that can be performed on them.
-These operations can come in the shape of functions (like `print()`) or specific **operators** such as the arithmetic operators `+`, `-`, `*`, and `/`.
-What's more, each mentioned type has a function with the same name that converts data to that type - this is known as **type casting**.
-
-To practice our intuitions about data types by running another script.
-Create a new file, let's call it `test_type.py`, and add the following code:
-
-```python
-x = 1
-print(f"This variable is a {type(x)}. \n")
-print(f"As a string, it looks like this: {str(x)}")
-print(f"As an integer, it looks like this: {int(x)}")
-print(f"As a boolean, it looks like this: {int(x)}")
-print(f"As a float, it looks like this: {float(x)}")
-
-print("\nLets try some arithmetic!")
-print(f"If we multiply the variable by three, we get: {x*3}")
-print(f"If subtract 10 from the variable, we get: {x-10}")
-```
-
-This script creates a **variable** by assigning `x=1`.
-A variable simply is a placeholder that we can use to store and address data.
-After creating the variable, we cast it to different data types and perform some arithmetic operations on it.
-The expressions that look like this `f"{}"` are called f-strings and they are a way to tell Python to format everything enclosed in the curly brackets as a string.
-
-Let's run the script by using `cd` to move to the directory where it is stored and typing `python test_type.py`.
-You should see this output:
-
-```sh
-This variable is a <class 'int'>.
-
-As a string, it looks like this: 1
-As an integer, it looks like this: 1
-As a float, it looks like this: 1.0
-
-Lets try some arithmetic!
-If we multiply the variable by three, we get: 3
-If subtract 10 from the variable, we get: -9
-```
-
-Now, let's modify our script!
-Instead of assigning an integer, we'll assign our variable a string by changing the first line to:
-
-```python
-x = "1"
-```
-
-If we save the change and rerun our script by typing `python test_string.py`, we'll see a similar output as before followed by a menacing error message: `TypeError: unsupported operand type(s) for -: 'str' and 'int'`.
-This tells us that subtraction is not a valid operation for a string and an integer.
-Also, notice how multiplying the variable by three did not give us "39" but instead "131313".
-This shows that the same operation may have a different meaning (or none at all), depending on the data type!
 
 ### Exercises
 1. Rerun the `test_types.py` script and assign a boolean and a float value to the variable `x`.
@@ -88,29 +15,13 @@ This shows that the same operation may have a different meaning (or none at all)
 6. Consider an experiment that estimates the participants hearing threshold by presenting pure tones and lowering their level until they are detected in 50% of cases. Some tones are omitted to catch false alarms. For a single trial of this experiment, which input parameters are required and what outputs are produced? Which type would you choose to represent each of those?
    
 ## 2. Type hints
-Python is a dynamically typed language which means that you don't have to explicitly declare the type of a variable.
-Instead a variables type is inferred from the assigned value.
-This allows us to code faster because we don't have to spend time thinking about and declaring data types.
-However, this also means that Python won't know that an operation (e.g. multiplying two strings) is invalid before it ran and crashed.
-
-In statically typed languages, you must explicitly declare the type of every variable you create.
-While this is additional  effort it allows your program to be checked for logical consistency before it runs.
-In version 3.5, Python introduced type hints for static type checking.
-Let's edit `test_types.py` to add a type declaration for our variable `x`:
-
-```python
-x: str = "1"
-```
-Once made this edit, you should see a new message appear in your editor which warns you that the `-` operator is not supported for these data types.
-This is the power of static typing: it can catch mistakes before they even happen.
-Note however, that type hints are entirely voluntary and have no effect when we actually run the program - they just help us to write correct code
 
 ### Exercise
 1. Assign an integer, boolean and float value to `x`. For each type, add a type hint and observe the resulting warnings.
 2. What happens if at some point in `test_types.py`, we cast `x` to a different type, like `x = int(x)`?
 3. Discuss potential upsides and downsides of using type hints.
 
-## 2. Collections
+## 3. Collections
 
 In the previous section, we learned how to operate on variables containing a single value of a certain data type.
 Often however, it is useful to operate on multiple values.

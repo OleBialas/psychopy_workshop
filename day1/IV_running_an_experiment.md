@@ -2,7 +2,7 @@
 
 ## 1. Debugging and running an experiment
 
-### Reference table
+### Reference Table
 | Code                       | Description                                                                |
 | ---                        | ---                                                                        |
 | `TypeError`                | Indicates that a variable has the wrong type for a given operation         |
@@ -18,7 +18,11 @@
 
 ## 2. Adding a command-line interface
 
-### Reference table
+```python
+import argparse
+```
+
+### Reference Table
 | Code                                   | Description                                     |
 | ---                                    | ---                                             |
 | `parser = argparse.ArgumentParser()`   | Create a parser for command line arguments      |
@@ -33,10 +37,14 @@
 
 ## 3. Folder and file management
 
-### Reference table
+```python
+from pathlib import Path
+```
+
+### Reference Table
 | Code                       | Description                                                   |
 | ---                        | ---                                                           |
-| `path = pathlib.Path(".")` | Get the relative path to the current directory                |
+| `path = Path(".")`         | Get the relative path to the current directory                |
 | `path = path/"foo"`        | Append a directory called "foo" to the path                   |
 | `path.resolve()`           | Get an absolute version of this path                          |
 | `path.parent`              | The path's parent (i.e. the directory containg the path)      |

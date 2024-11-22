@@ -7,13 +7,13 @@ from unittest.mock import patch
 import pytest
 ```
 
-| Code                                   | Description                                                         |
-| ---                                    | ---                                                                 |
-| `@pytest.fixture`                      | Putting this decorator before a function identifies it as a fixture |
-| `@pytest.fixture` <br> `def mymock():` | Putting this decorator before a function identifies it as a fixture |
+| Code                                                                                                                 | Description                                                                                  |
+| ---                                                                                                                  | ---                                                                                          |
+| `def sayhi():` <br> `print("hi")`                                                                                    | Define a function that says hi                                                               |
+| `def mockprint(msg):` <br> `pass`                                                                                    | Define a function that stakes in an argument and does nothing                                |
+| `with patch("builtins.print", side_effect=mockprint)` <br> `sayhi()`                                                 | Execute the `sayhi()` function while replacing the builtin `print` function with `mockprint` |
+| `@pytest.fixture` <br> `def mockprint(msg):` <br> `with patch("builtins.print", side_effect=mockprint)` <br> `yield` | Define a `@pytest.fixture` that yields a mock function                                       |
 
-with patch("posner.experiment.event.waitKeys", side_effect=mock_waitKeys):
-        run_experiment(subject_id, config, overwrite)
 
 
 ### Key Exercises

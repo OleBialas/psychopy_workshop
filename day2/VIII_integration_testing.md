@@ -7,16 +7,13 @@ from unittest.mock import patch
 import pytest
 ```
 
-
-
+### Reference Table
 | Code                                                                                                                                                                                                                                                              | Description                                                                                  |
 | ---                                                                                                                                                                                                                                                               | ---                                                                                          |
-| `def sayhi():` <br> &nbsp;&nbsp;&nbsp;&nbsp; `print("hi")`                                                                                                                                                                                                        | Define a function that says hi                                                               |
-| `def mockprint(msg):` <br> &nbsp;&nbsp;&nbsp;&nbsp; `pass`                                                                                                                                                                                                        | Define a function that stakes in an argument and does nothing                                |
-| `with patch("builtins.print", side_effect=p)` <br> &nbsp;&nbsp;&nbsp;&nbsp; `sayhi()`                                                                                                                                                                             | Execute the `sayhi()` function while replacing the builtin `print` function with `mockprint` |
-| `@pytest.fixture` <br> `def mockprint(msg):` <br> &nbsp;&nbsp;&nbsp;&nbsp; `with patch("builtins.print", side_effect=p):` <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `yield`                                                   | Define a `@pytest.fixture` that yields a mock function                                       |
-
-
+| `def sayhi():` <br> ;&nbsp;&nbsp; `print("hi")`                                                                                                                                                                                                        | Define a function that says hi                                                               |
+| `def mockprint(msg):` <br> &nbsp;&nbsp; `pass`                                                                                                                                                                                                                    | Define a function that stakes in an argument and does nothing                                |
+| `with patch("builtins.print", side_effect=p)` <br> &nbsp;&nbsp; `sayhi()`                                                                                                                                                                             | Execute the `sayhi()` function while replacing the builtin `print` function with `mockprint` |
+| `@pytest.fixture` <br> `def mockprint(msg):` <br> &nbsp;&nbsp; `with patch("builtins.print", side_effect=p):` <br> &nbsp;&nbsp;&nbsp;&nbsp; `yield`                                                   | Define a `@pytest.fixture` that yields a mock function                                       |
 
 ### Key Exercises
 1. Use patching to call the prepared function while changing it's behavior
@@ -24,8 +21,14 @@ import pytest
 
 ## 2. Running an Integration Test
 
+```python
+import pytest
+```
+
+### Code References
 
 ### Key Exercises
+1. Write a test 
 
 
 ## 3. Adding a Test Option to the CLI

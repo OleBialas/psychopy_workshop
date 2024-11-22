@@ -7,6 +7,11 @@ from unittest.mock import patch
 import pytest
 ```
 
+| Example      |
+|--------------|
+| <pre><code>@decorator<br>def function():<br>&nbsp;&nbsp;&nbsp;&nbsp;# function body</code></pre> |
+
+
 | Code                                                                                                                                                                                             | Description                                                                                  |
 | ---                                                                                                                                                                                              | ---                                                                                          |
 | `def sayhi():` <br> &nbsp;&nbsp;&nbsp;&nbsp; `print("hi")`                                                                                                                                       | Define a function that says hi                                                               |

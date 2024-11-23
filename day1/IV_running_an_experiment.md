@@ -1,22 +1,34 @@
 # IV. Running an Experiment
 
-## 1. Debugging and running an experiment
+
+## 1. Writing and Reading the Configuration
+TODO: This is a critical component, move it to an earlier point here or in the next notebook
+```python
+import json
+```
 
 ### Reference Table
-| Code                       | Description                                                                |
-| ---                        | ---                                                                        |
-| `TypeError`                | Indicates that a variable has the wrong type for a given operation         |
-| `ValueError`               | Indicates that the variable has the correct type but and invalid value     |
-| `FileNotFoundError`        | Indicates that a directory or file could not be found                      |
-| `KeyError`                 | Indicates that the dictionary or object does not contain the requested key |
-| `raise ValueError("oops")` | Raises an Exception (e.g. `ValueError`) and prints out a message           |
+| Code                           | Description                                                |
+| ---                            | ---                                                        |
+| `f = open("config.json", "w")` | Open a file called `"config.json"` in `"w"` (writing) mode |
+| `f = open("config.json", "r")` | Open a file called `"config.json"` in `"r"` (reading) mode |
+| `f.close()`                    | Close the file `f`                                         |
+| `json.dump(x, f)`              | Write the dictionary `x` to the (opened) file `f`          |
+| `json.load(f)`                 | Read a dictionary from the (opened) JSON file `f`          |
 
-### Key Exercises 
-1. Read the prepared script and identify different sections (e.g. configuration, sequence, trials, storage)
-2. Raise an error message if the config file is missing a key
+### Key Exercises
+1. Consider an oddball task where we play tones of frequency 800, 1000 and 1200 Hz and occasionally omit tones with a probability of 15 percent. Write a config file that stores the tone frequencies, omission probability and number of trials for this experiment. Discuss the appropriate data type for representing each of these parameters.
+2. Read this config file and print it's keys and values
+(TODO: prepare a file for this)
+
+
+TODO: 
+- This seems like a loose collection of several topics 
+- There should be one script per error
 
 
 ## 2. Adding a command-line interface
+TODO: Make sure eveyone at least knows how to use a CLI
 
 ```python
 import argparse
@@ -35,25 +47,5 @@ import argparse
 1. Create a script that takes in a command line argument and prints it out
 2. Add a CLI to the experimental script to pass in the subject name and dynamically adjust the name of the stored file
 
-## 3. Folder and file management
-
-```python
-from pathlib import Path
-```
-
-### Reference Table
-| Code                       | Description                                                   |
-| ---                        | ---                                                           |
-| `path = Path(".")`         | Get the relative path to the current directory                |
-| `path = path/"foo"`        | Append a directory called "foo" to the path                   |
-| `path.resolve()`           | Get an absolute version of this path                          |
-| `path.parent`              | The path's parent (i.e. the directory containg the path)      |
-| `path.exists()`            | Check if a file or folder at this path exists                 |
-| `path.mkdir(parents=True)` | Create a new directory at this path (and it's parents)        |
-| `__file__`                 | Variable containing the path to the currently executed script |
-
-### Key Exercises
-1. Create a script that create a new folder with several subfolders within the current directory
-2. Add a routine that checks whether a folder for the current subject exists and, if not, creates one
 
  

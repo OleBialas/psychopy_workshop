@@ -1,13 +1,14 @@
 # I. Configuring an Experiment
 
 ## 1. Running Scripts
+TODO: make this the "first exercise" in the kickoff meeting
 
 ### Reference Table
 | Code                               | Description                                                                    |
 | ---                                | ---                                                                            |
 | `cd psychopy_workshop`             | Move to a a folder called "psychopy_workshop" within the current folder        |
 | `cd /path/to/psychopy_workshop`    | Does the same with an absolute path, independent of the current folder         |
-| `cd \path\to\psychopy_workshop`    | Windows uses backslashes for paths                                             |
+| `cd C://path/to/psychopy_workshop` | Windows: Does the same with an absolute path, independent of the current folder         |
 | `python script.py`                 | Execute a Python script called `script.py` within the current directory        |
 | `print("Hello!")`                  | Print out a string                                                             |
 
@@ -50,8 +51,8 @@
 | `10 / 2`             | Divides integers, result: `5.0`                          |
 | `x > 5`              | Returns `True` if `x` is greater than `5`                |
 | `x <= 6`             | Returns `True` if `x` is smaller or equal to `6`         |
-| `x == "oh"`          | Retruns `True` if `x` contains the string `"oh"`         |
-| `x != "oh"`          | Retruns `True` if `x` does not contain the string `"oh"` |
+| `x == "oh"`          | Retruns `True` if `x` is exactly the string `"oh"`         |
+| `x != "oh"`          | Retruns `True` if `x` is not exactly the string `"oh"` |
 
 ### Key Exercises
 1. Create a script that defines a variable x and then multiplies x, adds to it and subtracts from x, divides x and checks if x smaller or larger than a given value. Print out the result of each operation
@@ -77,11 +78,16 @@
 
 ### Key Exercises
 1. Write a script that defines a list, prints out it's length and assigns a new value to the last element. Replace the list with a tuple - how can you modify the script so that it will not throw an error
+
+TODO: make it less vague, give feedback --> it should be clear when the exercise is done and they can move on
+
 2. Discuss which type of collection you would use to store your experimental parameters
+3. Make a collection for my three subjects: Nick, Ole, and Atle, and another Nick
+4. 
 
 
 ## 5. Writing and Reading the Configuration
-
+TODO: This is a critical component, move it to an earlier point here or in the next notebook
 ```python
 import json
 ```
@@ -98,4 +104,5 @@ import json
 ### Key Exercises
 1. Consider an oddball task where we play tones of frequency 800, 1000 and 1200 Hz and occasionally omit tones with a probability of 15 percent. Write a config file that stores the tone frequencies, omission probability and number of trials for this experiment. Discuss the appropriate data type for representing each of these parameters.
 2. Read this config file and print it's keys and values
+(TODO: prepare a file for this)
 

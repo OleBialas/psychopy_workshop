@@ -7,6 +7,10 @@ from random import shuffle
 ```
 
 ### Reference Table
+TODO:
+- the section should be focused on ITERATION
+- input() 
+
 | Code                                 | Description                                                   |
 | ---                                  | ---                                                           |
 | `for x in list_of_x:`                | Execute the indented code for each element `x` in `list_of_x` |
@@ -20,27 +24,8 @@ from random import shuffle
 1. Write a for loop that makes the user guess a number on every iteration
 2. Nest the for loop inside another for loop
 
-## 2. Conditional Expressions
 
-```python
-from random import shuffle
-```
-
-### Reference Table
-
-| Code            | Description                                                                 |
-| ---             | ---                                                                         |
-| `if x > 1:`     | Executes the indented code if the condition `x>1` is True                   |
-| `elif x < 0:`   | Executes the indented code when the `if` block skipped but `x<0` is True    |
-| `else:`         | Executes the indented code when the `if` and all `elif` blocks were skipped |
-| `x.isdecimal()` | Check whether the string `x` is a number                                    |
-| `int(x)`        | Convert the variable `x` to an integer                                      |
-
-### Key Exercises
-1. Write an if statement that converts the input to 1 if it is a decimal and sets it to 0 otherwise
-2. Include an elif statements that convert the letters q, w, and e to 1, 2 and 3
-
-## 3. Generating Trial Sequences
+## 2. Generating Trial Sequences
 
 ```python
 import pandas as pd
@@ -62,7 +47,7 @@ import pandas as pd
 2. Use that data frame to store the responses and save them
 
 
-## 4. Analyzing responses
+## 3. Analyzing responses
 
 ```python
 import pandas as pd

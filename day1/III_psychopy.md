@@ -27,7 +27,7 @@ from psychopy import core, event
 from psychpopy import visual
 ```
 
-### Reference Table
+### Reference 45
 | Code                                                            | Description                                                   |
 | ---                                                             | ---                                                           |
 | `win = visual.Window(size=(800,600))`                           | Create an Window that is 800x600 pixels                       |

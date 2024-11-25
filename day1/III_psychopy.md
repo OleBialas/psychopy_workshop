@@ -27,7 +27,7 @@ from psychopy import core, event
 from psychpopy import visual
 ```
 
-### Reference 45
+### Reference Table
 | Code                                                            | Description                                                   |
 | ---                                                             | ---                                                           |
 | `win = visual.Window(size=(800,600))`                           | Create an Window that is 800x600 pixels                       |
@@ -41,28 +41,6 @@ from psychpopy import visual
 1. Create a PsychoPy window, wait for a key press and close it again
 2. Draw a rectangle with text inside and display them on the screen
 
-
-## 3. Experimental timing
-
-```python
-from psychopy import core, visual
-```
-
-### Reference Table
-| Code                                           | Description                                       |
-| ---                                            | ---                                               |
-| `win = visual.Window(fullscr=True)`            | Create a full screen window                       |
-| `win.getActualFrameRate()`                     | Measure your screen's frame rate                  |
-| `img = visual.ImageStim(win, image="pic.png")` | Load an image and attach it to the given `Window` |
-| `img.draw()`                                   | Measure your screen's frame rate                  |
-| `clock = core.Clock()`                         | Initialize the timer                              |
-| `t = clock.getTime()`                          | Get a time stamp from the clock.                  |
-| `core.wait(0.5)`                               | Pause for a given time (in seconds)               |
-
-### Key Exercises
-
-1. Get frame rate and calculate possible duration for visual stimuli
-2. Correct clock for the time it takes to load an image
 
 
 ## 4. Playing sounds

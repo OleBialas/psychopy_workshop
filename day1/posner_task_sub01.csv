@@ -1,0 +1,11 @@
+stimulus_side,cue_valid,response,reaction_time
+right,True,right,0.3025801181793213
+right,True,right,0.19590258598327637
+left,True,left,0.2696242332458496
+left,False,right,0.2255406379699707
+right,True,right,0.48847174644470215
+right,True,right,0.23090100288391113
+left,True,left,0.27339887619018555
+left,True,left,0.2939646244049072
+left,True,left,0.38140416145324707
+right,False,right,0.4020817279815674

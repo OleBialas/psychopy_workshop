@@ -128,7 +128,7 @@ When we run this code with `python test_visual.py`, we should see a gray window 
 In the terminal, we should find a message warning us that no monitor specification could be found.
 This simply means that PsychoPy does not know certain properties of our screen like it's height and width, but that should not bother us for now.
 
-PsychoPy uses a dual-buffering system which means that there are two virtual screens: one that is being displayed and one that is hidden.
+PsychoPy uses a dual-buffering system, which means that there are two virtual screens: one that is being displayed and one that is hidden.
 Images are drawn to the hidden screen and only revealed one the window is flipped.
 Let's modify `test_visual.py` to show a little welcome message:
 
@@ -242,8 +242,8 @@ The measured frame rate is 60.248767156570935 Hz
 Thus, 1 frame lasts for 0.016597850000835024 s
 ```
 
-The fact that the screen refreshes at fixed intervals may seem obvious, but it's consequence is that images can only be displayed for a multiple of the frame rate.
-For example, displaying a stimulus for 220 ms is impossible if the screens frame rate is 60 Hz - the actual image will be displayed some fraction of a frame to long or too short.
+The fact that the screen refreshes at fixed intervals may seem obvious, but its consequence is that images can only be displayed for a multiple of the frame rate.
+For example, displaying a stimulus for 220 ms is impossible if the screen's frame rate is 60 Hz - the actual image will be displayed some fraction of a frame to long or too short.
 Fortunately though, 3 frames at a 60 Hz frame rate will last exactly 50 ms, so all multiples of 50 ms are OK.
 
 Another fact that may seem trivial is that computers need time to perform operations.
@@ -362,7 +362,7 @@ import numpy as np
 from psychopy import sound
 
 noise = sound.Sound(secs=1.5, stereo=False)
-noise.setSound(np.random.randn(len(noise.sndArr))
+noise.setSound(np.random.randn(len(noise.sndArr)))
 
 tone = sound.Sound('A', secs=1.5, stereo=False)
 
@@ -406,7 +406,7 @@ The time needs to come from the PsychToolBox clock which can be accessed by usin
 Let's schedule our tone in `test_sound.py` we can include the following:
 
 ```python
-import psychtoolbox as pbt
+import psychtoolbox as ptb
 from psychopy import sound
 
 tone = sound.Sound('A', secs=1.5, stereo=False)

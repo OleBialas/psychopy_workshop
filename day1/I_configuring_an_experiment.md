@@ -1,24 +1,7 @@
 # I. Configuring an Experiment
 
-## 1. Running Scripts
-TODO: make this the "first exercise" in the kickoff meeting
-
-### Reference Table
-| Code                               | Description                                                                    |
-| ---                                | ---                                                                            |
-| `cd psychopy_workshop`             | Move to a a folder called "psychopy_workshop" within the current folder        |
-| `cd /path/to/psychopy_workshop`    | Does the same with an absolute path, independent of the current folder         |
-| `cd C://path/to/psychopy_workshop` | Windows: Does the same with an absolute path, independent of the current folder         |
-| `python script.py`                 | Execute a Python script called `script.py` within the current directory        |
-| `print("Hello!")`                  | Print out a string                                                             |
-
-### Key Exercises
-1. Open a terminal and move to the `day1` folder in the `psychopy_workshop` directory.
-2. Write and run a script that prints out a message.
-
 
 ## 2. Data Types and Variables
-
 
 ### Reference Table
 | Code                | Description                                                      |
@@ -85,24 +68,4 @@ TODO: make it less vague, give feedback --> it should be clear when the exercise
 3. Make a collection for my three subjects: Nick, Ole, and Atle, and another Nick
 4. 
 
-
-## 5. Writing and Reading the Configuration
-TODO: This is a critical component, move it to an earlier point here or in the next notebook
-```python
-import json
-```
-
-### Reference Table
-| Code                           | Description                                                |
-| ---                            | ---                                                        |
-| `f = open("config.json", "w")` | Open a file called `"config.json"` in `"w"` (writing) mode |
-| `f = open("config.json", "r")` | Open a file called `"config.json"` in `"r"` (reading) mode |
-| `f.close()`                    | Close the file `f`                                         |
-| `json.dump(x, f)`              | Write the dictionary `x` to the (opened) file `f`          |
-| `json.load(f)`                 | Read a dictionary from the (opened) JSON file `f`          |
-
-### Key Exercises
-1. Consider an oddball task where we play tones of frequency 800, 1000 and 1200 Hz and occasionally omit tones with a probability of 15 percent. Write a config file that stores the tone frequencies, omission probability and number of trials for this experiment. Discuss the appropriate data type for representing each of these parameters.
-2. Read this config file and print it's keys and values
-(TODO: prepare a file for this)
 

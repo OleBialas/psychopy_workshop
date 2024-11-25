@@ -1,4 +1,5 @@
 # VIII. Integration testing
+TODO: No need to talk about integration testing, the benefit here is the ability to mock components of the experiment
 
 ## 1. Patching and Mocking
 
@@ -8,12 +9,38 @@ import pytest
 ```
 
 ### Reference Table
-| Code                                                                                                                                                                                                                                                              | Description                                                                                  |
-| ---                                                                                                                                                                                                                                                               | ---                                                                                          |
-| `def sayhi():` <br> ;&nbsp;&nbsp; `print("hi")`                                                                                                                                                                                                        | Define a function that says hi                                                               |
-| `def mockprint(msg):` <br> &nbsp;&nbsp; `pass`                                                                                                                                                                                                                    | Define a function that stakes in an argument and does nothing                                |
-| `with patch("builtins.print", side_effect=p)` <br> &nbsp;&nbsp; `sayhi()`                                                                                                                                                                             | Execute the `sayhi()` function while replacing the builtin `print` function with `mockprint` |
-| `@pytest.fixture` <br> `def mockprint(msg):` <br> &nbsp;&nbsp; `with patch("builtins.print", side_effect=p):` <br> &nbsp;&nbsp;&nbsp;&nbsp; `yield`                                                   | Define a `@pytest.fixture` that yields a mock function                                       |
+
+```python
+def sayhi():
+    print("hi!")
+```
+Defines a function that says `"hi!`
+
+```python
+def mock_print(msg):
+    pass
+```
+Defines a function that takes in an argument and does nothing
+
+```python
+with patch("builtins.print", side_effect=mock_print):
+    sayhi()
+```
+Execute the function `sayhi()` while replacing the builtin `print` function with `mock_print()`
+
+```python
+@pytest.fixture
+def mock_print_fix():
+    with patch("builtins.print", side_effect=mock_print):
+        yield
+```
+Create a fixture that yields the `mock_print` function
+
+```python
+def test_sayhi(mock_print_fix):
+    sayhi()
+```
+The test function can take a fixture as argument and Pytest will do the patching for us
 
 ### Key Exercises
 1. Use patching to call the prepared function while changing it's behavior
@@ -27,8 +54,10 @@ import pytest
 
 ### Code References
 
+
 ### Key Exercises
-1. Write a test 
+1. Write a fixture to patch PsychoPy's `event.waitKeys()`  function
+2. Use the fixture to run the whole experiment in an automated test
 
 
 ## 3. Adding a Test Option to the CLI

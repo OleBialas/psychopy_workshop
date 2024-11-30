@@ -1,3 +1,6 @@
 [submodule "presentations/reveal.js"]
 	path = presentations/reveal.js
 	url = https://github.com/hakimel/reveal.js.git
+[submodule "example_experiment"]
+	path = example_experiment
+	url = https://github.com/OleBialas/posner_task.git

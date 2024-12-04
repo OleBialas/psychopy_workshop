@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>macOS Installation Guide</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="macos-installation-guide">macOS Installation Guide</h1>
+<p>Hello! This guide will help you set up everything you need for the Python workshop.
+Just follow the instructions step by step.</p>
+<h2 id="step-1-installing-vscode">Step 1: Installing VSCode</h2>
+<p>First, we start by installing Visual Studio Code (VSCode),
+VSCode will be our integrated development environment (IDE) where we write and run code.</p>
+<ol>
+<li>Go to <a href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a> and download the macOS version</li>
+<li>Open the downloaded file (should end in .dmg)</li>
+<li>Drag Visual Studio Code.app to Applications folder</li>
+<li>Open VSCode from your Applications folder</li>
+</ol>
+<h2 id="step-2-installing-git">Step 2: Installing Git</h2>
+<p>Next, we install Git which we will use to download and continuously update the course materials</p>
+<ol>
+<li>Install Apple's Command Line Tools which includes Git:
+<ul>
+<li>Open Terminal (you can use Spotlight search with Cmd+Space and type &quot;Terminal&quot;)</li>
+<li>Type: <code>xcode-select --install</code></li>
+<li>Click &quot;Install&quot; in the popup window that appears</li>
+</ul>
+</li>
+<li>To verify the installation worked, go to VSCode and, in the top menu select Terminal -&gt; New Terminal</li>
+<li>In the terminal that opened, type <code>git --version</code></li>
+<li>You should see a version number</li>
+</ol>
+<h2 id="step-3-installing-miniforge">Step 3: Installing Miniforge</h2>
+<p>Finally, we have to install Miniforge, which is the software we use to manage our Python environment and install packages such as PsychoPy.
+If you already have an installation of Anaconda on your computer, you can use it instead of Miniforge, the steps in the following sections will be identical.
+However, some institutes removed access to the Anaconda servers which may prevent you from installing new packages.
+Check if you are affected by this and consider uninstalling Anaconda and replacing it with Miniforge.</p>
+<ol>
+<li>Download the Miniforge installer for macOS from <a href="https://conda-forge.org/download/">https://conda-forge.org/download/</a>
+<ul>
+<li>If you have an Intel Mac, download Miniforge3-MacOSX-x86_64.sh</li>
+<li>If you have Apple Silicon (M1/M2), download <a href="http://Miniforge3-MacOSX-arm64.sh">Miniforge3-MacOSX-arm64.sh</a></li>
+</ul>
+</li>
+<li>Open Terminal in VSCode (Terminal -&gt; New Terminal)</li>
+<li>Type: <code>bash ~/Downloads/Miniforge3-MacOSX-*.sh</code></li>
+<li>Accept the license agreement by typing &quot;yes&quot;</li>
+<li>Press Enter to confirm the default location</li>
+<li>Type &quot;yes&quot; when asked about initialization</li>
+<li>Close VSCode and open it again</li>
+<li>Open a new terminal and type: <code>conda --version</code></li>
+<li>You should see a version number</li>
+</ol>
+<h2 id="step-4-setting-up-python">Step 4: Setting up Python</h2>
+<p>Now we can create a new Python environment where we can install all the packages that we will need in this course.</p>
+<ol>
+<li>In the VSCode terminal, create a new environment by typing: <code>conda create -n psychopy python=3.8</code> and type 'y' (yes) to confirm</li>
+<li>After it finishes, type: <code>conda activate psychopy</code> to activate the new environment --- You should see (psychopy) at the start of your terminal line</li>
+<li>Then, finally install the required packages by typing <code>pip install psychopy psychtoolbox pytest ipytest ipykernel</code></li>
+</ol>
+<h2 id="step-5-testing-the-installation">Step 5: Testing the Installation</h2>
+<p>Now the installation is finished, let's test that everything works!</p>
+<ol>
+<li>In VSCode, open the file <code>test_psychopy.ipynb</code></li>
+<li>Click yes for any extension VSCode suggests installing</li>
+<li>In the top right corner, click on &quot;Select Kernel&quot; and choose the previously created psychopy environment</li>
+<li>If the environment is not detected, restart VSCode</li>
+<li>Run the cell in the notebook by clicking the arrow to the left of the cell or pressing <code>Cmd+Enter</code> while the cell is focused.</li>
+<li>If this opens a gray window and displays some text, everything worked out!</li>
+</ol>
+
+            
+            
+        </body>
+        </html>

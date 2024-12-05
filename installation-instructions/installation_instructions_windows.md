@@ -14,7 +14,7 @@ VSCode will be our integrated development environment (IDE) where we write and r
 ## Step 2: Installing Git
 Next, we install Git which we will use to download and continuously update the course materials
 
-1. Download Git from https://git-scm.com/download/windows (download should start automatically)
+1. Go to https://git-scm.com/downloads and download the latest version for Windows
 2. Run the installer with default settings
 3. To verify the installation worked, go to VSCode and, in the top menu select Terminal -> New Terminal
 4. In the terminal that opened, type  `git --version`
@@ -27,7 +27,7 @@ However, some institutes removed access to the Anaconda servers which may preven
 Check if you are affected by this and consider uninstalling Anaconda and replacing it with Miniforge.
 
 1. Download the Miniforge3 installer for Windows https://conda-forge.org/download/ and run it
-2. IMPORTANT: In the installer, check the box that says "Add Miniforge3 to PATH"
+2. IMPORTANT: In the installer, check the box that says "Add Miniforge3 to PATH" (even though the installer says this is not recommmended)
 3. Proceed through the installer with default settings
 3. To verify the installation worked, go to VSCode and, in the top menu select Terminal -> New Terminal
 4. In the terminal that opened, type  `conda --version`

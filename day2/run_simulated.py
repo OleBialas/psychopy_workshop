@@ -23,9 +23,9 @@ kb = Mock()
 kb.waitKeys = randomKey
 
 with (
-    patch("experiment.keyboard.Keyboard", return_value=kb),
     patch("experiment.sound.Sound.play", return_value=beep),
     patch("experiment.core.wait", return_value=wait),
+    patch("experiment.keyboard.Keyboard", return_value=kb),
 ):
     # kb.waitKeys.return_value = randomKey
     main()

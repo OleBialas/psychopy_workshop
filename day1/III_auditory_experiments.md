@@ -166,16 +166,40 @@ Make PsychoPy play a **2100** Hz tone in mono with `args` from the `parser` abov
 ```python
 args = parser.parse_args(args=[330, True])
 Sound(value=args.freq).play()
+```
 
 
 
 
+## 3.  Making Your CLI Easy to Understand: Options and Help Docs
 
-## 3.  Named
+#### Argparse
+
+| Code                                                                   | Description |
+| :--------------------------------------------------------------------- | :---------- |
+| **`parser = ArgumentParser(description='What this program does')`**    |             |
+| **`parser.add_argument('n', help='What the n variable does')`**        |             |
+| **`parser.print_help()`**                                              |             |
+| **`parser.add_argument('--sub', type=str)`**                           |             |
+| **`parser.add_argument('--block', type=int)`**                         |             |
+| **`parser.add_argument("--do", action='store_true')`**                 |             |
+| **`parser.parse_args(args=['--block', '1', '--sub', 'Bob', '--do'])`** |             |
+
+#### Psychopy
+| Code                                                   | Description |
+| ------------------------------------------------------ | ----------- |
+| **`keyboard.Keyboard().waitKeys()`**                   |             |
+| **`keyboard.Keyboard().waitKeys(keyList=['a', 'b'])`** |             |
+| **`keyboard.Keyboard().waitKeys(maxWait=3)`**          |             |
+| **`keyboard.Keyboard().waitKeys(waitRelease=True)`**   |             |
 
 
 
-## 4.
+## 4. Writing a program with a command line interface
+
+- Combine sound and keypress with configuration via CLI
+- Call from the terminal
+- 3 exercises
 
 
 

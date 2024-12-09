@@ -7,6 +7,6 @@ def add(a,b):
 
 ## 2. Ipyest
 
-## 3. More difficult tests
+## 3. Pytest from the terminal
 
-## 4. Pytest from the terminal
+## 4. mark.Parameterize

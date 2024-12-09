@@ -1,0 +1,12 @@
+{
+    "keys": [
+        "left",
+        "right"
+    ],
+    "conditions": [
+        1,
+        2,
+        3
+    ],
+    "training": null
+}

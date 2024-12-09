@@ -33,8 +33,19 @@ print('Success!')
 
 ## 2. Optional Arguments
 
-## 3. Abstraction
 
+## 3. Imports
+
+```python
+%load_ext autoreload
+%autoreload 2
+
+from mylib1 import mul
+assert mul(3, 5) == 15
+```
+
+## 4. Extra: Type Hints
+<!-- 
 ## 4. Variable Scope
 
-## 5. BONUS: Quantifying Complexity
+## 5. BONUS: Quantifying Complexity -->

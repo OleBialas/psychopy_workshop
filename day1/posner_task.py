@@ -1,13 +1,10 @@
 import json
-import pandas as pd
-from psychopy import core, visual, event
-
-#### Initialize PsychoPy classes ####
-win = visual.Window(fullscr=True)
-clock = core.Clock()
+from random import shuffle
+from psychopy.core import Clock, wait
+from psychopy.visual import Window, Rect, Circle, TextStim
+from psychopy.event import waitKeys
 
 #### Define parameters ####
-SUB_ID = "01"  # subject ID (used to create file name)
 N_TRIALS = 10  # number of trials
 P_VALID = 0.8  # probability that a cue is valid
 FIX_DUR = 0.5  # duration for which fixation is displayed
@@ -30,73 +27,71 @@ if N_TRIALS / 2 * P_VALID % 1 != 0:
     raise ValueError("Trials can't be evenly divided between conditions!")
 for s in ["left", "right"]:
     n = int(N_TRIALS / 2)
-    side += [s] * n
+    side += [s] * n  # side the stimulus appears ("left" or "right")
     n_valid = int(n * P_VALID)
-    valid += [True] * n_valid + [False] * (n - n_valid)
-trials = pd.DataFrame(
-    {"stimulus_side": side, "cue_valid": valid, "response": None, "reaction_time": None}
-)
-trials = trials.sample(frac=1, replace=False)  # shuffle the trial order
+    valid += [True] * n_valid + [False] * (n - n_valid)  # whether the cue is valid (True or False)
 
-#### Show instructions ####
-text = visual.TextStim(win, text=INSTRUCTIONS, height=0.07)
-text.draw()
-win.flip()
-event.waitKeys(keyList=["space"])
-core.wait(1)
+idx = list(range(N_TRIALS))
+shuffle(idx)  # randomize the order
+trials = []
+for i in idx:
+    trials.append([side[i], valid[i]])  # list of trials where each element is a list of 2, e.g. ["left", True]
 
-#### Run trials ####
-for i_trial in trials.index:
-    clock.reset()
+#### Run the Experiment ####
+clock = Clock()
+with Window() as win:
 
-    # show boxes and fixation
-    box_left = visual.Rect(win, lineColor="white", pos=(-0.5, 0))
-    box_right = visual.Rect(win, lineColor="white", pos=(0.5, 0))
-    fixation = visual.Circle(win, fillColor="white", size=(0.05 / win.aspect, 0.05))
-    _, _, _ = box_left.draw(), box_right.draw(), fixation.draw()
+    #### Show instructions ####
+    text = TextStim(win, text=INSTRUCTIONS, height=0.07)
+    text.draw()
     win.flip()
+    waitKeys(keyList=["space"])
 
-    core.wait(FIX_DUR)
+    #### Run trials ####
+    count = 0
+    for t in trials:
+        count+=1
 
-    # if stimulus is on the left and the cue is valid OR
-    # if stimulus is on the right and the cue is invalid
-    # highlight the left box
-    if (
-        trials.loc[i_trial].stimulus_side == "left"
-        and trials.loc[i_trial].cue_valid == True
-    ) or (
-        trials.loc[i_trial].stimulus_side == "right"
-        and trials.loc[i_trial].cue_valid == False
-    ):
-        box_left = visual.Rect(win, lineColor="red", pos=(-0.5, 0))
-        box_right = visual.Rect(win, lineColor="white", pos=(0.5, 0))
-    else:  # highlight the red box
-        box_left = visual.Rect(win, lineColor="white", pos=(-0.5, 0))
-        box_right = visual.Rect(win, lineColor="red", pos=(0.5, 0))
-    _, _, _ = box_left.draw(), box_right.draw(), fixation.draw()
-    win.flip()
+        # show boxes and fixation
+        box_left = Rect(win, lineColor="white", pos=(-0.5, 0))
+        box_right = Rect(win, lineColor="white", pos=(0.5, 0))
+        fixation = Circle(win, fillColor="white", radius=0.05)
+        _, _, _ = box_left.draw(), box_right.draw(), fixation.draw()
+        win.flip()
 
-    core.wait(CUE_DUR)
+        wait(FIX_DUR)
 
-    # show stimulus
-    box_left = visual.Rect(win, lineColor="white", pos=(-0.5, 0))
-    box_right = visual.Rect(win, lineColor="white", pos=(0.5, 0))
-    if trials.loc[i_trial].stimulus_side == "left":
-        stim = visual.Circle(
-            win, fillColor="red", pos=(-0.5, 0), size=(0.05 / win.aspect, 0.05)
-        )
-    else:
-        stim = visual.Circle(
-            win, fillColor="red", pos=(0.5, 0), size=(0.05 / win.aspect, 0.05)
-        )
-    _, _, _ = box_left.draw(), box_right.draw(), stim.draw()
-    win.callOnFlip(clock.reset)
-    win.flip()
-    # get response
-    keys = event.waitKeys(keyList=["left", "right"], timeStamped=clock)
-    name, rt = keys[0]
-    trials.loc[i_trial, "reaction_time"] = rt
-    trials.loc[i_trial, "response"] = name
+        # if stim is on the left and cue is valid OR if stim is on the right and cue is invalid
+        if ( t[0] == "left" and t[1] == True) or ( t[0] == "right" and t[1] == False):
+            box_left = Rect(win, lineColor="red", pos=(-0.5, 0)) # highlight the left box
+            box_right = Rect(win, lineColor="white", pos=(0.5, 0))
+        else:
+            box_left = Rect(win, lineColor="white", pos=(-0.5, 0))
+            box_right = Rect(win, lineColor="red", pos=(0.5, 0)) # highlight the right box
+        _, _, _ = box_left.draw(), box_right.draw(), fixation.draw()
+        win.flip()
 
-#### save results ####
-trials.to_csv(f"posner_task_sub" + SUB_ID + ".csv", index=False)
+        wait(CUE_DUR)
+
+        # show stimulus
+        box_left = Rect(win, lineColor="white", pos=(-0.5, 0))
+        box_right = Rect(win, lineColor="white", pos=(0.5, 0))
+        if t[0] == "left":
+            stim = Circle(win, fillColor="red", pos=(-0.5, 0), radius=0.05)
+        else:
+            stim = Circle(win, fillColor="red", pos=(0.5, 0), radius=0.05)
+        _, _, _ = box_left.draw(), box_right.draw(), stim.draw()
+        win.flip()
+
+        #### Obtain Response ####
+        clock.reset() 
+        keys = waitKeys(keyList=["left", "right"], timeStamped=clock) # get response
+        name = keys[0][0] # key name
+        rt = keys[0][1] # reaction time
+        rt = round(rt, 4) # round to 4 decimals
+        
+        if name == t[0]:
+            response = "correct"
+        else:
+            response = "wrong"
+        print("Trial " + str(count) + ": " + response + " response with rt=" + str(rt))

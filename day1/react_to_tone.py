@@ -1,17 +1,18 @@
 from argparse import ArgumentParser
 from psychopy.sound import Sound
-from psychopy.hardware.keyboard import Keyboard
+from psychopy.visual import Window
+from psychopy.event import waitKeys
 Sound(stereo=False)
-kb = Keyboard()
 
 parser = ArgumentParser()
 parser.add_argument("frequency", type=int)
 parser.add_argument("key", type=str)
-parser.add_argument("--release", action='store_true')
+parser.add_argument("--timed", action='store_true')
 args = parser.parse_args()
 
-tone = Sound(value=args.frequency)
-tone.play()
-keys = kb.waitKeys(keyList=[args.key], waitRelease=args.release)
+with Window() as win:
+    tone = Sound(value=args.frequency)
+    tone.play()
+    keys = waitKeys(keyList=[args.key], timeStamped=args.timed)
 
-print(keys)
+    print(keys)

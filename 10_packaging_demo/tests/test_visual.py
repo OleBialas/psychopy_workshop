@@ -19,7 +19,6 @@ def test_draw_frames(config, mock_window, mock_rect):
     assert x_coords == [-0.5, 0.5]
     assert colors == ["red", "white"]
 
-
 def test_draw_text(config, mock_window, mock_text):
     for message, first_word in zip(
         ["hello", "goodbye", "block 1"], ["Welcome", "Thank", "Press"]
@@ -29,10 +28,9 @@ def test_draw_text(config, mock_window, mock_text):
         text = kwargs["text"].split(" ")
         assert text[0] == first_word
 
-
 def test_draw_stimulus(config, mock_window, mock_circle):
     draw_stimulus(mock_window, config, side="left")
     _, kwargs = mock_circle.call_args
-    assert kwargs["pos"][0] == config.pos.left[0]
+    assert kwargs["pos"][0] == config["pos"]["left"][0]
     assert kwargs["size"] == (1 / mock_window.aspect, 1)
-    assert kwargs["radius"] == config.stim_radius
+    assert kwargs["radius"] == config["stim_radius"]

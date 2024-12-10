@@ -5,23 +5,9 @@ import shutil
 from pathlib import Path
 from unittest.mock import patch
 import pandas as pd
-from psychopy.event import waitKeys
-from psychopy.visual import Window, Rect, Circle, TextStim
-from psychopy.core import Clock, wait
-
-
-def test_experiment(subject_id: int, config: str, overwrite: bool = False):
-
-    def mock_waitKeys(keyList):
-        return [random.choice(keyList)]
-
-    with patch("posner.experiment.event.waitKeys", side_effect=mock_waitKeys):
-        run_experiment(subject_id, config, overwrite)
-
-    # clean up
-    root = json.load(open(config))["root"]
-    sub_dir = Path(root) / "data" / f"sub-{str(subject_id).zfill(2)}"
-    shutil.rmtree(sub_dir)
+from psychopy.event import waitKeys # type: ignore
+from psychopy.visual import Window, Rect, Circle, TextStim # type: ignore
+from psychopy.core import Clock, wait # type: ignore
 
 
 def run_experiment(subject_id: int, config_file: str, overwrite: bool = False):
@@ -55,7 +41,7 @@ def run_block(win: Window, clock: Clock, config: dict) -> pd.DataFrame:
     return trials
 
 
-def run_trial(win: Window, clock: Clock, side: str, valid: bool, config: str) -> list:
+def run_trial(win: Window, clock: Clock, side: str, valid: bool, config: dict) -> list:
 
     draw_frames(win, config)
     draw_fixation(win, config, flip=True)
@@ -93,7 +79,7 @@ def make_sequence(n_trials: int, p_valid: float) -> pd.DataFrame:
     return trials.sample(frac=1).reset_index(drop=True)
 
 
-def draw_frames(win: Window, config: dict, highlight: str = None, flip: bool = False):
+def draw_frames(win: Window, config: dict, highlight: str = "", flip: bool = False):
     for side in ["left", "right"]:
         if side == highlight:
             color = "red"
@@ -160,6 +146,22 @@ def load_config(config_file: str) -> dict:
     config = json.load(open(config_file))
     return config
 
+def test_experiment(subject_id: int, config: str, overwrite: bool = False):
+    def mock_waitKeys(keyList, timeStamped=None):
+        print("Mock is being called!")  # Debug print
+        key = random.choice(keyList)
+        if timeStamped:
+            return [(key, random.random())]
+        return [key]
+
+    with patch('psychopy.event.waitKeys', new=mock_waitKeys):
+        import experiment
+        experiment.run_experiment(subject_id, config, overwrite)
+
+    # clean up
+    root = json.load(open(config))["root_dir"]
+    sub_dir = Path(root) / "data" / f"sub-{str(subject_id).zfill(2)}"
+    shutil.rmtree(sub_dir)
 
 def main_cli():
     parser = argparse.ArgumentParser(

@@ -5,9 +5,9 @@ import shutil
 from pathlib import Path
 from unittest.mock import patch
 import pandas as pd
-from psychopy.event import waitKeys
-from psychopy.visual import Window, Rect, Circle, TextStim
-from psychopy.core import Clock, wait
+from psychopy.event import waitKeys # type: ignore
+from psychopy.visual import Window, Rect, Circle, TextStim # type: ignore
+from psychopy.core import Clock, wait # type: ignore
 
 
 def test_experiment(subject_id: int, config: str, overwrite: bool = False):
@@ -55,7 +55,7 @@ def run_block(win: Window, clock: Clock, config: dict) -> pd.DataFrame:
     return trials
 
 
-def run_trial(win: Window, clock: Clock, side: str, valid: bool, config: str) -> list:
+def run_trial(win: Window, clock: Clock, side: str, valid: bool, config: dict) -> list:
 
     draw_frames(win, config)
     draw_fixation(win, config, flip=True)
@@ -93,7 +93,7 @@ def make_sequence(n_trials: int, p_valid: float) -> pd.DataFrame:
     return trials.sample(frac=1).reset_index(drop=True)
 
 
-def draw_frames(win: Window, config: dict, highlight: str = None, flip: bool = False):
+def draw_frames(win: Window, config: dict, highlight: str = "", flip: bool = False):
     for side in ["left", "right"]:
         if side == highlight:
             color = "red"

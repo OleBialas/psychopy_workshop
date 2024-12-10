@@ -27,5 +27,3 @@
     - test that this is working
     - now push the folder to a new github repo
     - do a pip install from git --> now we can install and run our experiment anywhere
-
-  ## 3. GitHub CI

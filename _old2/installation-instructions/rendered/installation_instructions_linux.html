@@ -2,7 +2,7 @@
         <html>
         <head>
             <meta charset="UTF-8">
-            <title>Windows Installation Guide</title>
+            <title>Linux Installation Guide</title>
             <style>
 /* From extension vscode.github */
 /*---------------------------------------------------------------------------------------------
@@ -138,25 +138,23 @@
         
         </head>
         <body class="vscode-body vscode-light">
-            <h1 id="windows-installation-guide">Windows Installation Guide</h1>
+            <h1 id="linux-installation-guide">Linux Installation Guide</h1>
 <p>Hello! This guide will help you set up everything you need for the Python workshop.
 Just follow the instructions step by step.</p>
 <h2 id="step-1-installing-vscode">Step 1: Installing VSCode</h2>
 <p>First, we start by installing Visual Studio Code (VSCode),
 VSCode will be our integrated development environment (IDE) where we write and run code.</p>
 <ol>
-<li>Go to <a href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a> and download the Windows version</li>
-<li>Run the installer using the default options</li>
-<li>Once the installation is finished open VSCode</li>
+<li>Go to this website <a href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a> and download and install VSCode using the method of your choice</li>
+<li>Once the installation is finished, open VSCode from your applications menu or type <code>code</code> in the terminal</li>
 </ol>
 <h2 id="step-2-installing-git">Step 2: Installing Git</h2>
 <p>Next, we install Git which we will use to download and continuously update the course materials</p>
 <ol>
-<li>Go to <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a> and download the latest version for Windows</li>
-<li>Run the installer with default settings</li>
-<li>To verify the installation worked, go to VSCode and, in the top menu select Terminal -&gt; New Terminal</li>
-<li>In the terminal that opened, type  <code>git --version</code></li>
-<li>You should see a version number. If you don't, close VSCode and open it again.</li>
+<li>Open Terminal in VSCode (Terminal -&gt; New Terminal from the top menu)</li>
+<li>Type: <code>sudo apt-get install git</code></li>
+<li>To verify the installation worked, type: <code>git --version</code></li>
+<li>You should see a version number</li>
 </ol>
 <h2 id="step-3-installing-miniforge">Step 3: Installing Miniforge</h2>
 <p>Finally, we have to install Miniforge, which is the software we use to manage our Python environment and install packages such as PsychoPy.
@@ -164,18 +162,21 @@ If you already have an installation of Anaconda on your computer, you can use it
 However, some institutes removed access to the Anaconda servers which may prevent you from installing new packages.
 Check if you are affected by this and consider uninstalling Anaconda and replacing it with Miniforge.</p>
 <ol>
-<li>Download the Miniforge3 installer for Windows <a href="https://conda-forge.org/download/">https://conda-forge.org/download/</a> and run it</li>
-<li>IMPORTANT: In the installer, check the box that says &quot;Add Miniforge3 to PATH&quot; (even though the installer says this is not recommmended)</li>
-<li>Proceed through the installer with default settings</li>
-<li>To verify the installation worked, go to VSCode and, in the top menu select Terminal -&gt; New Terminal</li>
-<li>In the terminal that opened, type  <code>conda --version</code></li>
-<li>You should see a version number. If you don't, close VSCode and open it again.</li>
+<li>Download the Miniforge installer from the website <a href="https://conda-forge.org/download/">https://conda-forge.org/download/</a></li>
+<li>Open Terminal in VSCode (Terminal -&gt; New Terminal from the top menu)</li>
+<li>Install Miniforge by typing <code>bash ~/Downloads/Miniforge3-Linux-x86_64.sh</code> (the file location may differ)</li>
+<li>Proceed through the installer, selecting yes for every option</li>
+<li>Close VSCode and open it again</li>
+<li>Open a new terminal and type: <code>conda --version</code></li>
+<li>You should see a version number</li>
 </ol>
 <h2 id="step-4-setting-up-python">Step 4: Setting up Python</h2>
 <p>Now we can create a new Python environment where we can install all the packages that we will need in this course.</p>
 <ol>
-<li>In the VSCode terminal, create a new environment by typing: <code>conda create -n psychopy python=3.8</code> and type 'y' (yes) to confirm</li>
+<li>In the VSCode terminal, create a new environment by typing: <code>conda create -n psychopy python=3.10</code> and type 'y' (yes) to confirm</li>
 <li>After it finishes, type: <code>conda activate psychopy</code> to activate the new environment --- You should see (psychopy) at the start of your terminal line</li>
+<li>Go to this webiste <a href="https://extras.wxpython.org/wxPython4/extras/linux/gtk3/">https://extras.wxpython.org/wxPython4/extras/linux/gtk3/</a> and download the wxPython wheel for your distribution and Python version (for examplen ubuntu-24.04/wxPython-4.2.2-cp310-cp310-linux_x86_64.whl for the latest Ubuntu and Python version 3.10)</li>
+<li>Install wxPython by typing <code>pip install ~/downloads/wxPython-4.2.1-cp39-cp39-linux_x86_64.whl</code> (the file location may differ)</li>
 <li>Then, finally install the required packages by typing <code>pip install psychopy psychtoolbox pytest ipytest ipykernel</code></li>
 </ol>
 <h2 id="step-5-testing-the-installation">Step 5: Testing the Installation</h2>
@@ -185,9 +186,10 @@ Check if you are affected by this and consider uninstalling Anaconda and replaci
 <li>Click yes for any extension VSCode suggests installing</li>
 <li>In the top right corner, click on &quot;Select Kernel&quot; and choose the previously created psychopy environment</li>
 <li>If the environment is not detected, restart VSCode</li>
-<li>Run the cell in the notebook by clicking the arrow to the left of the cell or pressing <code>ctrl+enter</code> while the cell is focused.</li>
+<li>Run the cell in the notebook by clicking the arrow to the left of the cell or pressing <code>Ctrl+Enter</code> while the cell is focused</li>
 <li>If this opens a gray window and displays some text, everything worked out!</li>
 </ol>
+<pre><code></code></pre>
 
             
             

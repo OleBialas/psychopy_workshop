@@ -10,20 +10,6 @@ from psychopy.visual import Window, Rect, Circle, TextStim # type: ignore
 from psychopy.core import Clock, wait # type: ignore
 
 
-def test_experiment(subject_id: int, config: str, overwrite: bool = False):
-
-    def mock_waitKeys(keyList):
-        return [random.choice(keyList)]
-
-    with patch("posner.experiment.event.waitKeys", side_effect=mock_waitKeys):
-        run_experiment(subject_id, config, overwrite)
-
-    # clean up
-    root = json.load(open(config))["root"]
-    sub_dir = Path(root) / "data" / f"sub-{str(subject_id).zfill(2)}"
-    shutil.rmtree(sub_dir)
-
-
 def run_experiment(subject_id: int, config_file: str, overwrite: bool = False):
 
     config = load_config(config_file)
@@ -160,6 +146,22 @@ def load_config(config_file: str) -> dict:
     config = json.load(open(config_file))
     return config
 
+def test_experiment(subject_id: int, config: str, overwrite: bool = False):
+    def mock_waitKeys(keyList, timeStamped=None):
+        print("Mock is being called!")  # Debug print
+        key = random.choice(keyList)
+        if timeStamped:
+            return [(key, random.random())]
+        return [key]
+
+    with patch('psychopy.event.waitKeys', new=mock_waitKeys):
+        import experiment
+        experiment.run_experiment(subject_id, config, overwrite)
+
+    # clean up
+    root = json.load(open(config))["root_dir"]
+    sub_dir = Path(root) / "data" / f"sub-{str(subject_id).zfill(2)}"
+    shutil.rmtree(sub_dir)
 
 def main_cli():
     parser = argparse.ArgumentParser(

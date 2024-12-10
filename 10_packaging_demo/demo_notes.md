@@ -18,3 +18,14 @@
     - mocking
     - Talk about testing strategy: Which parts should you focus your efforts on?
     - Running an automated experiment
+  
+  ## 2. Make experiment into an installable package
+    - create a new folder for the packaging demo and moce the content from session 10 there
+    - Put experiment.py in src folder 
+    - add pyproject.toml
+    - do pip install -e .
+    - test that this is working
+    - now push the folder to a new github repo
+    - do a pip install from git --> now we can install and run our experiment anywhere
+
+  ## 3. GitHub CI

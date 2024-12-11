@@ -9,9 +9,9 @@ def test_has_repetitions_respects_min_dist():
     assert has_repetitions([1,2,3,1], 2) == False
     assert has_repetitions([1,2,3,1], 3) == True
 
-@pytest.mark.parametrize("n_trials", [9, 18, 30])
+@pytest.mark.parametrize("n_trials", range(1, 1000))
 def test_sequence_has_correct_len(n_trials):
-    assert len(make_sequence([1,2,3], n_trials)) == n_trials
+    assert len(make_sequence([1], n_trials)) == n_trials
 
 @pytest.mark.parametrize("conditions,max_iter", [
     ([1,2], 2),

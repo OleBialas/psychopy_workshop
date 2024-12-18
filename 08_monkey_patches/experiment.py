@@ -2,6 +2,8 @@ from psychopy import core, sound
 from psychopy.visual import Window, TextStim
 from psychopy.event import waitKeys
 
+cfg = load_config()
+
 def main():
         win = Window()
         text = TextStim(win, text="Press SPACE when you hear a tone!")
@@ -11,7 +13,7 @@ def main():
             tone.play()
             key = waitKeys(keyList=["space"], timeStamped=True)[0]
             print("Pressed " + key[0] + " after " + str(key[1]) + " secs")
-            core.wait(1)
+            core.wait(cfg['wait_dur'])
         win.close()
 
 if __name__ == "__main__":

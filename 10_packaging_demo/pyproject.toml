@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+posner = "posner.experiment:main_cli"
+
+[project]
+name = "posner"
+version = "0.0.1"
+authors = [
+  { name="Ole Bialas", email="ole.bialas@posteo.de" },
+]
+description = "Psychopy implementation of the Posner attention cueing task."
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = ["psychopy"]
+
+[project.urls]
+Homepage = "https://github.com/OleBialas/posner_task"
+Issues = "https://github.com/OleBialas/posner_task/issues"

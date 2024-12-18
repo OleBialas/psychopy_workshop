@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: posner
+Version: 0.0.1
+Summary: Psychopy implementation of the Posner attention cueing task.
+Author-email: Ole Bialas <ole.bialas@posteo.de>
+Project-URL: Homepage, https://github.com/OleBialas/posner_task
+Project-URL: Issues, https://github.com/OleBialas/posner_task/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+Requires-Dist: psychopy

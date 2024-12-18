@@ -21,7 +21,7 @@ def randomKey(keyList, timeStamped):
 with (
     patch("experiment.Window"),
     patch("experiment.TextStim"),
-    patch("experiment.sound.Sound.play", return_value=beep),
+    patch("experiment.sound.Sound.play", side_effect=beep),
     patch("experiment.core.wait", side_effect=wait),
     patch("experiment.waitKeys", side_effect=randomKey),
 ):
